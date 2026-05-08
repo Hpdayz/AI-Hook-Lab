@@ -3,12 +3,15 @@
 export type Platform = 'xiaohongshu' | 'douyin' | 'bilibili';
 export type ContentType = 'video' | 'image-text' | 'product-ad' | 'tutorial' | 'opinion';
 export type GenerationStatus = 'idle' | 'loading' | 'success' | 'error';
+// UI state machine for the generation flow
 
 export const HOOK_STYLES = [
   '悬念型','共鸣型','反差型','痛点型',
   '数据型','故事型','挑战型','幽默型',
   '权威型','好奇型','恐惧型','利益型',
 ] as const;
+
+export type HookStyle = typeof HOOK_STYLES[number];
 
 export const PLATFORM_LABELS: Record<Platform, string> = {
   xiaohongshu: '小红书', douyin: '抖音', bilibili: 'B站',
@@ -36,8 +39,8 @@ export interface GenerationRequest {
 export interface HookResult {
   id: string;
   hook: string;
-  style: string;
-  score: number;
+  style: HookStyle;
+  score: number; // 1-100
   reason: string;
 }
 
